@@ -60,6 +60,12 @@
 
 .cada-cartao{
     margin-bottom: 60px;
+    width: 300px;
+}
+
+.cada-cartao img{
+    height:400px;
+    object-fit:cover;
 }
 
 #container-login{

@@ -14,16 +14,13 @@ function fazPatch(url, body, codigoCliente) {
 
 
 function atualizaCliente() {
-    /* Já temos os dados na página.
-       Podemos alterar o nome, a idade e a UF.
-    */
     event.preventDefault()
 
     let codigoCliente = document.getElementById("codigoCliente");
     let nome = document.getElementById("nome");
     let rua = document.getElementById("rua");
     let numero = document.getElementById("numero");
-    let cepomplemento = document.getElementById("complemento");
+    let complemento = document.getElementById("complemento");
     let bairro = document.getElementById("bairro");
     let cidade = document.getElementById("cidade");
     let uf = document.getElementById("uf");
@@ -33,7 +30,7 @@ function atualizaCliente() {
 
    
     body = {
-        "codigo" : codigoCliente,
+        "id" : codigoCliente,
         "nome": nome,
         "rua": rua,
         "numero": numero,

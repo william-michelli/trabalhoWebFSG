@@ -25,9 +25,9 @@
             </li>
           </ul>
 
-          <a class="nav-link" href="tabelaProdutos.html">Produtos</a>
-          <a class="nav-link" href="tabelaClientes.html" style="margin: 0 30px 0 30px;">Clientes</a>
-          <a class="nav-link" href="cadastrarCliente.html">Cadastrar</a>
+          <a class="nav-link" href="tabelaProdutos.html" id="botao-lista-produtos">Produtos</a>
+          <a class="nav-link" href="tabelaClientes.html" id="botao-lista-clientes" style="margin: 0 30px 0 30px;">Clientes</a>
+          <a class="nav-link" href="cadastrarCliente.html" id="botao-cadastro">Cadastre-se</a>
           <a class="nav-link" href="login.html"><button type="button" id="botao-login" class="btn btn-primary">Login</button></a>
           <a class="nav-link" href="carrinho.html"><button type="button" id="botao-carrinho" class="btn btn-primary"><i class="fa-solid fa-cart-shopping fa-xl"></i></button></a>
           
@@ -38,60 +38,17 @@
 
 
   <!-- LISTA DE PRODUTOS ///////////////////////////////////////////////////////////////////////// -->
-  <div id="lista-produtos">
+  <div>
 
-    <div class="row row-cols-1 row-cols-md-5 g-4">
-
-      <div class="col cada-cartao">
-        <div class="card h-100" style="max-width: 400px;">
-          <img src="https://images.squarespace-cdn.com/content/v1/5e2561d80aee2d7e8a7acc7c/1580100339076-3DSOH15T1IB67H5XYAWN/Asset-4black-words_Asset-7black-head_mockup_Front_Mens_White.png?format=2500w" style="max-width: 500px" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Camiseta Básica Branca</h5>
-            <p class="card-text">Camiseta de algodão de manga curta, cor branca.</p>
-            <br>
-            <h6 class="card-preco">R$ 29,90</h6>
-
-            <form onclick="adicionarCarrinho(produtos.codigoProduto)">
-              <button type="button" class="botao-comprar">Comprar</button>
-            </form>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col cada-cartao">
-        <div class="card h-100" style="max-width: 400px;">
-          <img src="https://images.squarespace-cdn.com/content/v1/5e2561d80aee2d7e8a7acc7c/1580100339076-3DSOH15T1IB67H5XYAWN/Asset-4black-words_Asset-7black-head_mockup_Front_Mens_White.png?format=2500w" style="max-width: 500px" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Camiseta Básica Branca</h5>
-            <p class="card-text">Camiseta de algodão de manga curta, cor branca.</p>
-            <br>
-            <h6 class="card-preco">R$ 29,90</h6>
-
-            <form onclick="adicionarCarrinho(produtos.codigoProduto)">
-              <button type="button" class="botao-comprar">Comprar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-    
-
-
+    <div class="row row-cols-1 row-cols-md-5 g-4" id="lista-produtos">
 
       
     </div>
 
   </div>
-      
+     
 
 
-
-
-    <br><br>
-    <a href="form.html">NOVO</a>
-    <br>
-    
     <script src="main.js"></script>
     <!-- JavaScript (Opcional) -->
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->

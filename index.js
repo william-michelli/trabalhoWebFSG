@@ -14,6 +14,8 @@ const cors = require("cors"); // Necessário para permitir o acesso da URL
 //App deve fazer uso do CORS
 app.use(cors());
 
+
+//CLIENTES ////////////////////////////////////////////////////////////////////////////////////////
 app.delete("/clientes/:id", async (request, response) => {
     const id = parseInt(request.params.id);
     await db.deleteClientes(id);
@@ -50,6 +52,50 @@ app.get("/clientes/:id", async (request, response) => {
     const results = await db.selectCliente(id);
     response.json(results);
 })
+
+
+
+//PRODUTOS ////////////////////////////////////////////////////////////////////////////////////////
+app.delete("/produtos/:produto_id", async (request, response) => {
+    const produto_id = parseInt(request.params.produto_id);
+    await db.deleteProdutos(produto_id);
+    response.sendStatus(204);
+})
+
+app.post("/produtos", async (request,response) => {
+    const produto = request.body;
+    await db.insertProdutos(produto);
+    response.sendStatus(201);
+})
+
+app.patch("/produtos/:id", async (request,response) => {
+    const produto_id = parseInt(request.params.produto_id);
+    const produto = request.body;
+    await db.updateProdutos(produto_id, produto);
+    response.sendStatus(200);
+})
+
+app.get("/produtos", async (request, response) => {
+    const results = await db.selectProdutos();
+    response.json(results);
+})
+
+app.get("/produtos/:produto_id", async (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*")
+    response.setHeader("Access-Control-Allow-Credentials", "true");
+    response.setHeader("Access-Control-Max-Age", "1800");
+    response.setHeader("Access-Control-Allow-Headers", "content-type");
+    response.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );
+    const produto_id = parseInt(request.params.produto_id);
+    const results = await db.selectProduto(produto_id);
+    response.json(results);
+})
+
+
+
+
+
+
 
 app.get("/", (request, response, next) => {
     response.json({
