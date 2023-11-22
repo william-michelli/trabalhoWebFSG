@@ -17,19 +17,17 @@ function cadastraCliente() {
     event.preventDefault()
     let url = "http://localhost:3000/clientes"
 
-    let codigoCliente = document.getElementById("codigoCliente");
-    let nome = document.getElementById("nome");
-    let rua = document.getElementById("rua");
-    let numero = document.getElementById("numero");
-    let cepomplemento = document.getElementById("complemento");
-    let bairro = document.getElementById("bairro");
-    let cidade = document.getElementById("cidade");
-    let uf = document.getElementById("uf");
-    let cep = document.getElementById("cep");
+    let nome = document.getElementById("nome").value;
+    let rua = document.getElementById("rua").value;
+    let numero = document.getElementById("numero").value;
+    let complemento = document.getElementById("complemento").value;
+    let bairro = document.getElementById("bairro").value;
+    let cidade = document.getElementById("cidade").value;
+    let uf = document.getElementById("uf").value;
+    let cep = document.getElementById("cep").value;
 
 
     body = {
-        "codigo" : codigoCliente,
         "nome": nome,
         "rua": rua,
         "numero": numero,

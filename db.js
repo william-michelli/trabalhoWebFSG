@@ -13,14 +13,16 @@ async function selectCliente(id){
     return results[0];
 }
 
-async function insertClientes(cliente){
-    const values = [cliente.nome, cliente.idade, cliente.uf];
-    await client.query("insert into clientes(nome, idade, uf) values (?,?,?);",values);
+async function insertClientes(novoCliente){ 
+    console.log(novoCliente);
+
+    const values = [novoCliente.bairro, novoCliente.cep, novoCliente.cidade, novoCliente.complemento, novoCliente.nome, novoCliente.numero, novoCliente.rua, novoCliente.uf];
+    await client.query("insert into clientes(bairro, cep, cidade, complemento, nome, numero, rua, uf) values (?,?,?,?,?,?,?,?);",values);
 }
 
 async function updateClientes(id, novoCliente){
-    const values = [novoCliente.bairro, novoCliente.cep, novoCliente.cidade, novoCliente.complemento, novoCliente.idade, novoCliente.nome, novoCliente.numero, novoCliente.rua, novoCliente.uf, id];
-    await client.query("update clientes set nome = ?, idade = ?, uf = ? where id=?;",values);
+    const values = [novoCliente.bairro, novoCliente.cep, novoCliente.cidade, novoCliente.complemento, novoCliente.nome, novoCliente.numero, novoCliente.rua, novoCliente.uf, id];
+    await client.query("update clientes set bairro = ?, cep = ?, cidade = ?, complemento = ?, nome = ?, numero = ?, rua = ?, uf = ? where id=?;",values);
 }
 
 async function deleteClientes(id){
@@ -35,7 +37,7 @@ async function selectProdutos(){
 }
 
 async function selectProduto(produto_id){
-    const results = await client.query("select * from produtos where id=?;", [produto_id]);
+    const results = await client.query("select * from produtos where produto_id=?;", [produto_id]);
     return results[0];
 }
 

@@ -20,7 +20,7 @@ app.delete("/clientes/:id", async (request, response) => {
     const id = parseInt(request.params.id);
     await db.deleteClientes(id);
     response.sendStatus(204);
-})
+}) 
 
 app.post("/clientes", async (request,response) => {
     const cliente = request.body;

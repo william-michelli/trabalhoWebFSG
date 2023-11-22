@@ -1,8 +1,9 @@
 var usuarioLogado = "ADMIN"
 
-let carrinho = [
+var carrinho = [
     
 ]
+
 
 const clientes = async function(){
     let res = await fetch(`http://localhost:3000/clientes`)
@@ -21,8 +22,8 @@ const clientes = async function(){
                         <td>${clientes.cidade}</td>
                         <td>${clientes.uf}</td>
                         <td>${clientes.cep}</td>
-                        <td><a href="atualizarCliente.html?id=${clientes.codigo}">ATUALIZAR<a></td>
-                        <td><a href="deletarCliente.html?id=${clientes.codigo}">EXCLUIR<a></td>           
+                        <td><a href="atualizarCliente.html?id=${clientes.id}">ATUALIZAR<a></td>
+                        <td><a href="deletarCliente.html?id=${clientes.id}">EXCLUIR<a></td>           
                     <tr>`
                     
         tabelaClientes.insertAdjacentHTML('beforeend', linha)
@@ -73,8 +74,7 @@ const produtosHome = async function(){
                             <br>
                             <h6 class="card-preco">R$ ${produto.preco.toFixed(2).replace(".", ",")}</h6>
                        
-                            <p class="card-id" style="display: none;">${produto.id_produto}</p>
-                            <button type="button" id="comprar${id}" class="botao-comprar">Comprar</button>
+                            <button type="button" class="botao-comprar" onclick="adicionarCarrinho(${produto.produto_id}, '${produto.descricao}', ${produto.preco}, '${produto.url_imagem}');">Comprar</button>
                         
                         </div>
                         </div>
@@ -89,24 +89,17 @@ produtosHome();
 
 
 
-
-
 //COLOCA COISAS NO CARRINHO SÓ PARA TESTE DO JEITO QUE TA////////////////////////////////////////////////
-function preencheTabelaCarrinho(produto_id, descricao, preco, url_imagem){
-    carrinho.push({
-                codigo: produto_id,
-                descricao: descricao,
-                preco: preco,
-                quantidade: "1",
-                imagem: url_imagem
-            })
-    
+function preencheTabelaCarrinho(){
+    var teste = localStorage.getItem("preservado");
+
+    let novoCarrinho = JSON.parse(teste)
 
     let total = 0;
 
     let totalCompra = document.getElementById("total-compra")
     let tabelaCarrinho = document.getElementById("tabela-carrinho")
-    carrinho.forEach(carrinho => {
+    novoCarrinho.forEach(carrinho => {
         let linha = `<tr style="vertical-align:middle">
                         <td>${carrinho.codigo}</td>
                         <td>${carrinho.descricao}</td>
@@ -126,16 +119,18 @@ function preencheTabelaCarrinho(produto_id, descricao, preco, url_imagem){
 preencheTabelaCarrinho();
 
 //ADICIONAR CARRINHO
-let botaoComprar = document.querySelectorAll('.botao-comprar')
-   
-botaoComprar.forEach(function(el){
-    el.addEventListener('click', adicionarCarrinho())
-})
+function adicionarCarrinho(produto_id, descricao, preco, url_imagem){
+    carrinho.push({
+        codigo: produto_id,
+        descricao: descricao,
+        preco: preco,
+        quantidade: "1",
+        imagem: url_imagem
+    })
 
-function adicionarCarrinho(){
-    console.log("clicou")
-    // let produto_id = document.querySelector('.card-id')
-    // console.log(produto_id)
+    localStorage.setItem("preservado", JSON.stringify(carrinho));
+  
+    preencheTabelaCarrinho()
 }
 ///////////////////////////////////////////////////////////////////
 
