@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2023 at 10:43 PM
+-- Generation Time: Nov 22, 2023 at 12:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -30,7 +30,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
-  `idade` int(11) DEFAULT NULL,
   `rua` varchar(255) DEFAULT NULL,
   `numero` int(11) DEFAULT NULL,
   `complemento` varchar(255) DEFAULT NULL,
@@ -44,8 +43,8 @@ CREATE TABLE `clientes` (
 -- Dumping data for table `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `nome`, `idade`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `cep`) VALUES
-(1, 'Pedro', 34, 'Marechal Floriano', 402, 'Casa', 'Limoeiro', 'Porto Alegre', 'RS', 95075889);
+INSERT INTO `clientes` (`id`, `nome`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `cep`) VALUES
+(1, 'Pedro', 'Marechal Floriano', 402, 'Casa', 'Limoeiro', 'Porto Alegre', 'RS', 95075889);
 
 -- --------------------------------------------------------
 

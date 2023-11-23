@@ -45,3 +45,28 @@ function atualizaCliente() {
 
     window.location.href = "index.html";
 }
+
+
+
+function atualizaProduto() {
+    event.preventDefault()
+
+    let codigoProduto = document.getElementById("codigoProduto").value;
+    let descricao = document.getElementById("descricao").value;
+    let preco = document.getElementById("preco").value;
+    let imagem = document.getElementById("url_imagem").value;
+
+    let url = "http://localhost:3000/produtos/" + codigoProduto; 
+
+   
+    body = {
+        "produto_id" : codigoProduto,
+        "descricao": descricao,
+        "preco": preco,
+        "url_imagem": imagem,
+    }
+
+    fazPatch(url, body, codigoProduto)
+
+    window.location.href = "index.html";
+}

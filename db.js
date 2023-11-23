@@ -42,8 +42,8 @@ async function selectProduto(produto_id){
 }
 
 async function insertProdutos(produto){
-    const values = [produto.produto_id, produto.descricao, produto.preco, produto.url_imagem];
-    await client.query("insert into produtos(nome, idade, uf) values (?,?,?);",values);
+    const values = [produto.descricao, produto.preco, produto.url_imagem];
+    await client.query("insert into produtos(descricao, preco, url_imagem) values (?,?,?);",values);
 }
 
 async function updateProdutos(produto_id, produto){
@@ -52,7 +52,18 @@ async function updateProdutos(produto_id, produto){
 }
 
 async function deleteProdutos(produto_id){
-    await client.query("delete from produtos where id=?;",produto_id);
+    await client.query("delete from produtos where produto_id=?;",produto_id);
+}
+
+//PEDIDOS ////////////////////////////////////////////////////////////////////////////////////////
+async function selectPedidos(){
+    const results = await client.query("select * from pedido;");
+    return results[0];
+}
+
+async function insertPedidos(pedido){ 
+    const values = [pedido.pedido_id, pedido.cliente_id, pedido.produto_id, pedido.valor_final, pedido.qtd]
+    await client.query("insert into pedido(pedido_id, cliente_id, produto_id, valor_final, qtd) values (?,?,?,?,?);",values);
 }
 
 
@@ -67,5 +78,8 @@ module.exports = {
     selectProduto,
     insertProdutos,
     updateProdutos,
-    deleteProdutos
+    deleteProdutos,
+
+    selectPedidos,
+    insertPedidos
 }

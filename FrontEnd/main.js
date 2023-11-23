@@ -4,6 +4,7 @@ var carrinho = [
     
 ]
 
+var novoCarrinho
 
 const clientes = async function(){
     let res = await fetch(`http://localhost:3000/clientes`)
@@ -91,37 +92,42 @@ produtosHome();
 
 //COLOCA COISAS NO CARRINHO SÓ PARA TESTE DO JEITO QUE TA////////////////////////////////////////////////
 function preencheTabelaCarrinho(){
-    var teste = localStorage.getItem("preservado");
+    var carrinhoPreservado = localStorage.getItem("preservado");
 
-    let novoCarrinho = JSON.parse(teste)
+    novoCarrinho = JSON.parse(carrinhoPreservado)
 
     let total = 0;
+
 
     let totalCompra = document.getElementById("total-compra")
     let tabelaCarrinho = document.getElementById("tabela-carrinho")
     novoCarrinho.forEach(carrinho => {
         let linha = `<tr style="vertical-align:middle">
-                        <td>${carrinho.codigo}</td>
+                        <td>${carrinho.produto_id}</td>
                         <td>${carrinho.descricao}</td>
-                        <td>${carrinho.preco}</td>
+                        <td>${carrinho.preco.toFixed(2)}</td>
                         <td><img src="${carrinho.imagem}" style="max-width: 150px"></td>
                         <td><input value="${carrinho.quantidade}" style="width: 100px; text-align: center;"></td>    
-                        <td>${carrinho.preco * carrinho.quantidade}</td>    
+                        <td>${(carrinho.preco * carrinho.quantidade).toFixed(2)}</td>    
                     <tr>`
                     
         tabelaCarrinho.insertAdjacentHTML('beforeend', linha)
 
         total += parseFloat(`${carrinho.preco}`) * parseFloat(`${carrinho.quantidade}`)
-        totalCompra.innerHTML = "Total : " + total
+        totalCompra.innerHTML = "Total : R$ " + total.toFixed(2)
     })
 }
 
 preencheTabelaCarrinho();
 
 //ADICIONAR CARRINHO
+
 function adicionarCarrinho(produto_id, descricao, preco, url_imagem){
+    var carrinhoPreservado = localStorage.getItem("preservado");
+    let carrinho = carrinhoPreservado == null ? [] : JSON.parse(carrinhoPreservado)
+
     carrinho.push({
-        codigo: produto_id,
+        produto_id: produto_id,
         descricao: descricao,
         preco: preco,
         quantidade: "1",

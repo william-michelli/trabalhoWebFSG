@@ -92,6 +92,18 @@ app.get("/produtos/:produto_id", async (request, response) => {
 })
 
 
+//PEDIDOS
+app.get("/pedidos", async (request, response) => {
+    const results = await db.selectPedidos();
+    response.json(results);
+})
+
+app.post("/pedidos", async (request,response) => {
+    const pedido = request.body;
+    await db.insertPedidos(pedido);
+    response.sendStatus(201);
+})
+
 
 
 

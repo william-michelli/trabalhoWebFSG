@@ -42,3 +42,54 @@ function cadastraCliente() {
 
     window.location.href = "index.html";
 }
+
+
+
+function cadastraProduto() {
+    event.preventDefault()
+    let url = "http://localhost:3000/produtos"
+
+    let descricao = document.getElementById("descricao").value;
+    let preco = document.getElementById("preco").value;
+    let imagem = document.getElementById("imagem").value;
+
+
+    body = {
+        "descricao": descricao,
+        "preco": preco,
+        "url_imagem": imagem,
+    }
+
+    fazPost(url, body)
+
+    window.location.href = "index.html";
+}
+
+
+var pedidoID = 0;
+
+function finalizarCompra() {
+    event.preventDefault()
+    let url = "http://localhost:3000/pedidos"
+
+    console.log(novoCarrinho)
+
+    novoCarrinho.forEach(item => {
+        body = {
+            "pedido_id": pedidoID,
+            "cliente_id": 3,//PRECISA ALTERAR DEPOIS TA SEMPRE ENVIANDO PELO CLIENTE 3
+            "produto_id": item.produto_id,
+            "valor_final": item.preco * item.quantidade,
+            "qtd": item.quantidade,
+        }
+
+        fazPost(url, body)
+    })
+
+
+    novoCarrinho = []
+    carrinho = []
+    localStorage.clear()
+
+    window.location.href = "index.html";
+}

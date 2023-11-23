@@ -26,3 +26,15 @@ function excluiCliente() {
 
     window.location.href = "index.html";
 }
+
+
+function excluiProduto() {
+    event.preventDefault();
+    
+    let codigoProduto = document.getElementById("codigoProduto").value;
+    let url = "http://localhost:3000/produtos/" + codigoProduto; 
+
+    fazDelete(url)
+
+    window.location.href = "index.html";
+}
