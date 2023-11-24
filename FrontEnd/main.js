@@ -98,7 +98,6 @@ function preencheTabelaCarrinho(){
 
     let total = 0;
 
-
     let totalCompra = document.getElementById("total-compra")
     let tabelaCarrinho = document.getElementById("tabela-carrinho")
     novoCarrinho.forEach(carrinho => {
@@ -107,8 +106,12 @@ function preencheTabelaCarrinho(){
                         <td>${carrinho.descricao}</td>
                         <td>${carrinho.preco.toFixed(2)}</td>
                         <td><img src="${carrinho.imagem}" style="max-width: 150px"></td>
-                        <td><input value="${carrinho.quantidade}" style="width: 100px; text-align: center;"></td>    
-                        <td>${(carrinho.preco * carrinho.quantidade).toFixed(2)}</td>    
+                        <td>
+                            <button onclick="diminuirQntd(${carrinho.produto_id}, 'total${carrinho.produto_id}', ${carrinho.preco.toFixed(2)})">-</button>
+                                <input value="${carrinho.quantidade}" id="${carrinho.produto_id}" style="width: 70px; text-align: center;" readonly>
+                            <button onclick="aumentarQntd(${carrinho.produto_id}, 'total${carrinho.produto_id}', ${carrinho.preco.toFixed(2)})">+</button>
+                        </td>    
+                        <td id="total${carrinho.produto_id}">${(carrinho.preco * carrinho.quantidade).toFixed(2)}</td>    
                     <tr>`
                     
         tabelaCarrinho.insertAdjacentHTML('beforeend', linha)
@@ -125,22 +128,101 @@ preencheTabelaCarrinho();
 function adicionarCarrinho(produto_id, descricao, preco, url_imagem){
     var carrinhoPreservado = localStorage.getItem("preservado");
     let carrinho = carrinhoPreservado == null ? [] : JSON.parse(carrinhoPreservado)
+    let teste = false
 
-    carrinho.push({
-        produto_id: produto_id,
-        descricao: descricao,
-        preco: preco,
-        quantidade: "1",
-        imagem: url_imagem
-    })
+    if(carrinho.length != 0){
+        carrinho.forEach(car => {
+            if(car.produto_id == produto_id){
+              teste = true
+              let aux =  parseInt(car.quantidade)
+              car.quantidade = aux + 1
 
-    localStorage.setItem("preservado", JSON.stringify(carrinho));
-  
-    preencheTabelaCarrinho()
+              localStorage.setItem("preservado", JSON.stringify(carrinho));
+      
+              preencheTabelaCarrinho()
+            }
+        })
+        console.log(carrinho)
+    }else{
+        carrinho.push({
+            produto_id: produto_id,
+            descricao: descricao,
+            preco: preco,
+            quantidade: "1",
+            imagem: url_imagem
+        })
+
+        localStorage.setItem("preservado", JSON.stringify(carrinho));
+      
+        preencheTabelaCarrinho()
+    }
+
+
+    if(teste == false){
+        carrinho.push({
+            produto_id: produto_id,
+            descricao: descricao,
+            preco: preco,
+            quantidade: "1",
+            imagem: url_imagem
+        })
+    
+        localStorage.setItem("preservado", JSON.stringify(carrinho));
+      
+        preencheTabelaCarrinho()
+    }
+    else{
+       alert("ja existe")
+    }
 }
 ///////////////////////////////////////////////////////////////////
 
+function diminuirQntd(inputId, totalItem, preco){
+    let input = document.getElementById(inputId)
+    let total = document.getElementById(totalItem)
 
+    let valor = parseFloat(total.textContent)
+    let aux = valor - preco
+    total.textContent = aux.toFixed(2)
+
+    if(input.value == 1){
+        let resposta = confirm("Deseja mesmo remover esse item do carrinho?")
+
+        if(resposta == true){
+            input.value--
+
+            var carrinhoPreservado = localStorage.getItem("preservado");
+
+            novoCarrinho = JSON.parse(carrinhoPreservado)
+
+            let tabelaCarrinho = document.getElementById("tabela-carrinho")
+            var filtered = novoCarrinho.filter(function(el) { return el.produto_id != inputId; }); 
+     
+            tabelaCarrinho.rows.remove()
+            localStorage.setItem("preservado", JSON.stringify(filtered));
+
+            preencheTabelaCarrinho()
+        }  
+    }else{
+        input.value--
+        
+    }
+}
+
+function aumentarQntd(inputId, totalItem, preco){
+    let input = document.getElementById(inputId)
+    input.value++
+
+    let total = document.getElementById(totalItem)
+
+    let valor = parseFloat(total.textContent)
+
+    let aux = valor + preco
+    total.textContent = aux.toFixed(2)
+
+    // total.textContent = valor + preco
+    // total.textContent = total.textContent.substring(0, 5)
+}
 
 //LOGAR
 // function logarCliente(){

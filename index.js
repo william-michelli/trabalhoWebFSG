@@ -71,6 +71,7 @@ app.post("/produtos", async (request,response) => {
 app.patch("/produtos/:id", async (request,response) => {
     const produto_id = parseInt(request.params.produto_id);
     const produto = request.body;
+
     await db.updateProdutos(produto_id, produto);
     response.sendStatus(200);
 })

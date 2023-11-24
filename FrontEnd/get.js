@@ -51,6 +51,7 @@ function atualizaPaginaProduto(produto) {
     txtDescricao.value = produto[0].descricao;
     txtPreco.value = produto[0].preco;
     txtImagem.src = produto[0].url_imagem;
+    txtImagem.value = produto[0].url_imagem;
 
 }
 

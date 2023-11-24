@@ -47,7 +47,7 @@ async function insertProdutos(produto){
 }
 
 async function updateProdutos(produto_id, produto){
-    const values = [produto.descricao, produto.preco, produto.url_imagem, produto_id];
+    const values = [produto.descricao, produto.preco, produto.url_imagem, produto.produto_id];
     await client.query("update produtos set descricao = ?, preco = ?, url_imagem = ? where produto_id=?;",values);
 }
 
