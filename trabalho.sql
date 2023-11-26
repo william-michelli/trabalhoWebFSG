@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2023 at 12:15 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Tempo de geração: 26/11/2023 às 18:11
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `trabalho`
+-- Banco de dados: `trabalho`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clientes`
+-- Estrutura para tabela `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -40,16 +40,16 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `clientes`
+-- Despejando dados para a tabela `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `cep`) VALUES
-(1, 'Pedro', 'Marechal Floriano', 402, 'Casa', 'Limoeiro', 'Porto Alegre', 'RS', 95075889);
+(3, 'teste wdfqwe', 'teste', 222, 'Teste', 'Teste', 'Teste', 'rs', 22222);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login`
+-- Estrutura para tabela `login`
 --
 
 CREATE TABLE `login` (
@@ -61,21 +61,31 @@ CREATE TABLE `login` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedido`
+-- Estrutura para tabela `pedido`
 --
 
 CREATE TABLE `pedido` (
   `pedido_id` int(11) NOT NULL,
-  `cliente_id` int(11) DEFAULT NULL,
-  `produto_id` int(11) DEFAULT NULL,
-  `valor_final` float DEFAULT NULL,
-  `qtd` int(11) DEFAULT NULL
+  `sequencial` int(11) NOT NULL,
+  `produto_id` int(11) NOT NULL,
+  `qtd` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `pedido`
+--
+
+INSERT INTO `pedido` (`pedido_id`, `sequencial`, `produto_id`, `qtd`) VALUES
+(5247, 1, 10, 1),
+(5247, 2, 11, 1),
+(33531, 1, 9, 2),
+(72915, 1, 11, 1),
+(72915, 2, 10, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produtos`
+-- Estrutura para tabela `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -86,81 +96,94 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `produtos`
+-- Despejando dados para a tabela `produtos`
 --
 
 INSERT INTO `produtos` (`produto_id`, `preco`, `descricao`, `url_imagem`) VALUES
-(1, 29.9, 'Camiseta Branca Básica', 'https://images.squarespace-cdn.com/content/v1/5e2561d80aee2d7e8a7acc7c/1580100339076-3DSOH15T1IB67H5XYAWN/Asset-4black-words_Asset-7black-head_mockup_Front_Mens_White.png?format=2500w'),
-(3, 59.9, 'Camiseta Rosa Estampada', 'https://d3ugyf2ht6aenh.cloudfront.net/stores/003/221/915/products/285474-camiseta-vida-vermelho-rio-de-janeiro-blu-x-91-f4163ea847cfda6b2d16904710718263-640-0.png');
+(9, 29.9, 'Camiseta Manga Curta Amarela ', 'https://img01.ztat.net/article/M1/42/2O/00/OE/12/M1422O00O-E12@9.jpg'),
+(10, 35.4, 'Camiseta Basica Cinza', 'https://images.tcdn.com.br/img/img_prod/422345/camiseta_basic_ralph_lauren_cinza_2_1803_1_20171115165128.jpg'),
+(11, 59.9, 'Camiseta Preta Feminina', 'https://static.netshoes.com.br/produtos/blusa-malwee-baby-look-basica-feminina/06/E86-1982-006/E86-1982-006_zoom1.jpg?ts=1593009554');
+
+-- --------------------------------------------------------
 
 --
--- Indexes for dumped tables
+-- Estrutura para tabela `tabela_pedidos`
+--
+
+CREATE TABLE `tabela_pedidos` (
+  `pedido_id` int(11) NOT NULL,
+  `cliente_id` int(11) DEFAULT NULL,
+  `total` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tabela_pedidos`
+--
+
+INSERT INTO `tabela_pedidos` (`pedido_id`, `cliente_id`, `total`) VALUES
+(5247, 3, 95.3),
+(33531, 3, 59.8),
+(72915, 3, 95.3);
+
+--
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `clientes`
+-- Índices de tabela `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `login`
+-- Índices de tabela `login`
 --
 ALTER TABLE `login`
   ADD KEY `cliente_id` (`cliente_id`);
 
 --
--- Indexes for table `pedido`
+-- Índices de tabela `pedido`
 --
 ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`pedido_id`),
-  ADD KEY `cliente_id` (`cliente_id`),
-  ADD KEY `produto_id` (`produto_id`);
+  ADD PRIMARY KEY (`pedido_id`,`sequencial`);
 
 --
--- Indexes for table `produtos`
+-- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`produto_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Índices de tabela `tabela_pedidos`
+--
+ALTER TABLE `tabela_pedidos`
+  ADD PRIMARY KEY (`pedido_id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `clientes`
+-- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `pedido`
---
-ALTER TABLE `pedido`
-  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `produtos`
+-- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `produto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `produto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- Constraints for dumped tables
+-- Restrições para tabelas despejadas
 --
 
 --
--- Constraints for table `login`
+-- Restrições para tabelas `login`
 --
 ALTER TABLE `login`
   ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
-
---
--- Constraints for table `pedido`
---
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`produto_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

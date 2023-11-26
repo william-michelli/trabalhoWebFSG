@@ -105,6 +105,18 @@ app.post("/pedidos", async (request,response) => {
     response.sendStatus(201);
 })
 
+//TODOS PEDIDOS
+app.get("/todospedidos", async (request, response) => {
+    const results = await db.selectTodosPedidos();
+    response.json(results);
+})
+
+app.post("/todospedidos", async (request,response) => {
+    const pedido = request.body;
+    await db.insertTodosPedidos(pedido);
+    response.sendStatus(201);
+})
+
 
 
 

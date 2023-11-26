@@ -62,10 +62,21 @@ async function selectPedidos(){
 }
 
 async function insertPedidos(pedido){ 
-    const values = [pedido.pedido_id, pedido.cliente_id, pedido.produto_id, pedido.valor_final, pedido.qtd]
-    await client.query("insert into pedido(pedido_id, cliente_id, produto_id, valor_final, qtd) values (?,?,?,?,?);",values);
+    const values = [pedido.pedido_id, pedido.sequencial, pedido.produto_id, pedido.qtd]
+    await client.query("insert into pedido(pedido_id, sequencial, produto_id, qtd) values (?,?,?,?);",values);
 }
 
+
+//TODOS PEDIDOS////////////////////////////////////////////////
+async function selectTodosPedidos(){
+    const results = await client.query("select * from tabela_pedidos;");
+    return results[0];
+}
+
+async function insertTodosPedidos(pedido){ 
+    const values = [pedido.pedido_id, pedido.cliente_id, pedido.total]
+    await client.query("insert into tabela_pedidos(pedido_id, cliente_id, total) values (?,?,?);",values);
+}
 
 module.exports = {
     selectClientes,
@@ -81,5 +92,8 @@ module.exports = {
     deleteProdutos,
 
     selectPedidos,
-    insertPedidos
+    insertPedidos,
+    
+    selectTodosPedidos,
+    insertTodosPedidos
 }

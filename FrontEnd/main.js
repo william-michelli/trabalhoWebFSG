@@ -90,16 +90,18 @@ produtosHome();
 
 
 
-//COLOCA COISAS NO CARRINHO SÓ PARA TESTE DO JEITO QUE TA////////////////////////////////////////////////
+//COLOCA COISAS NO CARRINHO //////////////////////////////
 function preencheTabelaCarrinho(){
     var carrinhoPreservado = localStorage.getItem("preservado");
 
     novoCarrinho = JSON.parse(carrinhoPreservado)
 
-    let total = 0;
-
     let totalCompra = document.getElementById("total-compra")
     let tabelaCarrinho = document.getElementById("tabela-carrinho")
+
+    let total = 0;
+
+
     novoCarrinho.forEach(carrinho => {
         let linha = `<tr style="vertical-align:middle">
                         <td>${carrinho.produto_id}</td>
@@ -117,7 +119,7 @@ function preencheTabelaCarrinho(){
         tabelaCarrinho.insertAdjacentHTML('beforeend', linha)
 
         total += parseFloat(`${carrinho.preco}`) * parseFloat(`${carrinho.quantidade}`)
-        totalCompra.innerHTML = "Total : R$ " + total.toFixed(2)
+        totalCompra.innerHTML = total.toFixed(2)
     })
 }
 
@@ -194,11 +196,11 @@ function diminuirQntd(inputId, totalItem, preco){
             var carrinhoPreservado = localStorage.getItem("preservado");
 
             novoCarrinho = JSON.parse(carrinhoPreservado)
-
-            let tabelaCarrinho = document.getElementById("tabela-carrinho")
+            
             var filtered = novoCarrinho.filter(function(el) { return el.produto_id != inputId; }); 
      
-            tabelaCarrinho.rows.remove()
+            location.reload(true);
+            
             localStorage.setItem("preservado", JSON.stringify(filtered));
 
             preencheTabelaCarrinho()
@@ -219,9 +221,6 @@ function aumentarQntd(inputId, totalItem, preco){
 
     let aux = valor + preco
     total.textContent = aux.toFixed(2)
-
-    // total.textContent = valor + preco
-    // total.textContent = total.textContent.substring(0, 5)
 }
 
 //LOGAR
