@@ -31,7 +31,7 @@
       </nav>
 
     <!-- Quando a página termina de ser carregada, executa a função GET que atualiza a página com os dados -->
-    <body onLoad="getProduto();">
+    <body onLoad="get();">
 
     <!-- colocar no onload da página a busca dos dados-->
     <h1 class="text-center" style="margin-top: 80px;">Atualizar Cliente</h1>
@@ -39,7 +39,7 @@
 
     <div class="container" id="container-cadastrar">     
         <script src="patch.js"></script>
-        <form onsubmit="atualizaProduto()">
+        <form onsubmit="atualizaCliente()">
 
             <div class="form-group col-md-1">
                 <label for="codigoCliente">Codigo</label>

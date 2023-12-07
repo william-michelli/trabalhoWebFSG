@@ -1,5 +1,3 @@
-var usuarioLogado = "ADMIN"
-
 var carrinho = [
     
 ]
@@ -224,23 +222,25 @@ function aumentarQntd(inputId, totalItem, preco){
 }
 
 //LOGAR
-// function logarCliente(){
-//     usuarioLogado = document.querySelector("#usuario").value
-//     console.log(usuarioLogado)
-//     window.location.href = "FrontEnd/index.html";
-// }
+var usuarioLogado = "ADMIN"
 
-// window.addEventListener("load", (event) => {
-//     if(usuarioLogado == "ADMIN"){
-//         document.querySelector("botao-cadastro").style.display = 'none';
-//         document.querySelector("#botao-lista-produtos").style.display = 'block';
-//         document.querySelector("#botao-lista-clientes").style.display = 'block';
-//     }else{
-//         document.querySelector("#botao-lista-produtos").style.display = 'none';
-//         document.querySelector("#botao-lista-clientes").style.display = 'none';
+function logarCliente(){
+    usuarioLogado = document.querySelector("#usuario").value
+    console.log(usuarioLogado)
+    window.location.href = "FrontEnd/index.html";
+}
+
+window.addEventListener("load", (event) => {
+    if(usuarioLogado == "ADMIN"){
+        document.querySelector("botao-cadastro").style.display = 'none';
+        document.querySelector("#botao-lista-produtos").style.display = 'block';
+        document.querySelector("#botao-lista-clientes").style.display = 'block';
+    }else{
+        document.querySelector("#botao-lista-produtos").style.display = 'none';
+        document.querySelector("#botao-lista-clientes").style.display = 'none';
         
-//     }
-// });
+    }
+});
 
 
 

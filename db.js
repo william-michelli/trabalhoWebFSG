@@ -18,6 +18,11 @@ async function insertClientes(novoCliente){
 
     const values = [novoCliente.bairro, novoCliente.cep, novoCliente.cidade, novoCliente.complemento, novoCliente.nome, novoCliente.numero, novoCliente.rua, novoCliente.uf];
     await client.query("insert into clientes(bairro, cep, cidade, complemento, nome, numero, rua, uf) values (?,?,?,?,?,?,?,?);",values);
+
+        // Insere usuário na tabela de Login
+        const idCliente = (await client.query("select c.id from clientes c where c.nome = ?", novoCliente.nome));
+        const loginValues = [novoCliente.login, novoCliente.senha, idCliente[0][0].id]
+        await client.query("insert into login (usuario, senha, cliente_id) values (?,?,?)", loginValues);
 }
 
 async function updateClientes(id, novoCliente){
@@ -78,6 +83,21 @@ async function insertTodosPedidos(pedido){
     await client.query("insert into tabela_pedidos(pedido_id, cliente_id, total) values (?,?,?);",values);
 }
 
+
+//LOGIN
+//Mostra TODOS logins
+async function selectLogins(){
+    const results = await client.query("select * from login;");
+    return results[0];
+}
+
+
+//Login especifico
+async function selectLogin(id){
+    const results = await client.query("select * from login where cliente_id=?;", [id]);
+    return results[0];
+}
+
 module.exports = {
     selectClientes,
     selectCliente,
@@ -95,5 +115,9 @@ module.exports = {
     insertPedidos,
     
     selectTodosPedidos,
-    insertTodosPedidos
+    insertTodosPedidos,
+
+    selectLogins,
+    selectLogin
+
 }

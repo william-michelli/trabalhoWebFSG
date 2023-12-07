@@ -117,9 +117,23 @@ app.post("/todospedidos", async (request,response) => {
     response.sendStatus(201);
 })
 
+//LOGIN/////////////////////////////////////////////////////////
+app.get("/login", async (request, response) => {
+    const results = await db.selectLogins();
+    response.json(results);
+})
 
-
-
+app.get("/login/:cliente_id", async (request, response) => {
+    //Os cabeçalhos abaixo devem ser setados
+    response.setHeader("Access-Control-Allow-Origin", "*")
+    response.setHeader("Access-Control-Allow-Credentials", "true");
+    response.setHeader("Access-Control-Max-Age", "1800");
+    response.setHeader("Access-Control-Allow-Headers", "content-type");
+    response.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );
+    const id = parseInt(request.params.cliente_id);
+    const results = await db.selectLogin(id);
+    response.json(results);
+})
 
 
 app.get("/", (request, response, next) => {

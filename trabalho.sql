@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26/11/2023 às 18:11
+-- Tempo de geração: 05/12/2023 às 22:02
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -44,7 +44,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `cep`) VALUES
-(3, 'teste wdfqwe', 'teste', 222, 'Teste', 'Teste', 'Teste', 'rs', 22222);
+(3, 'Will', 'Jarderlino Ramos', 225, 'Casa', 'Limoeiro', 'Caxias do Sul', 'RS', 95270000),
+(11, 'Ana Maria', 'Jardelino', 559, 'Apartamento', 'Aparecida', 'Porto Alegre', 'RS', 95273598);
 
 -- --------------------------------------------------------
 
@@ -53,10 +54,18 @@ INSERT INTO `clientes` (`id`, `nome`, `rua`, `numero`, `complemento`, `bairro`, 
 --
 
 CREATE TABLE `login` (
-  `usuario` varchar(255) DEFAULT NULL,
-  `senha` varchar(255) DEFAULT NULL,
-  `cliente_id` int(11) DEFAULT NULL
+  `usuario` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `senha` varchar(30) CHARACTER SET utf16 COLLATE utf16_unicode_ci NOT NULL,
+  `cliente_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `login`
+--
+
+INSERT INTO `login` (`usuario`, `senha`, `cliente_id`) VALUES
+('will', '123', 3),
+('ana', '123', 11);
 
 -- --------------------------------------------------------
 
@@ -76,11 +85,9 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`pedido_id`, `sequencial`, `produto_id`, `qtd`) VALUES
-(5247, 1, 10, 1),
-(5247, 2, 11, 1),
-(33531, 1, 9, 2),
-(72915, 1, 11, 1),
-(72915, 2, 10, 1);
+(9186, 1, 10, 2),
+(9493, 1, 11, 2),
+(9493, 2, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -100,7 +107,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`produto_id`, `preco`, `descricao`, `url_imagem`) VALUES
-(9, 29.9, 'Camiseta Manga Curta Amarela ', 'https://img01.ztat.net/article/M1/42/2O/00/OE/12/M1422O00O-E12@9.jpg'),
+(9, 29.9, 'Camiseta Amarela ', 'https://img01.ztat.net/article/M1/42/2O/00/OE/12/M1422O00O-E12@9.jpg'),
 (10, 35.4, 'Camiseta Basica Cinza', 'https://images.tcdn.com.br/img/img_prod/422345/camiseta_basic_ralph_lauren_cinza_2_1803_1_20171115165128.jpg'),
 (11, 59.9, 'Camiseta Preta Feminina', 'https://static.netshoes.com.br/produtos/blusa-malwee-baby-look-basica-feminina/06/E86-1982-006/E86-1982-006_zoom1.jpg?ts=1593009554');
 
@@ -121,9 +128,8 @@ CREATE TABLE `tabela_pedidos` (
 --
 
 INSERT INTO `tabela_pedidos` (`pedido_id`, `cliente_id`, `total`) VALUES
-(5247, 3, 95.3),
-(33531, 3, 59.8),
-(72915, 3, 95.3);
+(9186, 3, 0),
+(9493, 3, 0);
 
 --
 -- Índices para tabelas despejadas
@@ -139,7 +145,7 @@ ALTER TABLE `clientes`
 -- Índices de tabela `login`
 --
 ALTER TABLE `login`
-  ADD KEY `cliente_id` (`cliente_id`);
+  ADD PRIMARY KEY (`cliente_id`);
 
 --
 -- Índices de tabela `pedido`
@@ -167,23 +173,19 @@ ALTER TABLE `tabela_pedidos`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de tabela `login`
+--
+ALTER TABLE `login`
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `produto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `login`
---
-ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

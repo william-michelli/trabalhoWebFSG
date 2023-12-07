@@ -25,6 +25,9 @@ function cadastraCliente() {
     let cidade = document.getElementById("cidade").value;
     let uf = document.getElementById("uf").value;
     let cep = document.getElementById("cep").value;
+        // Login do Usuário
+        let login = document.getElementById("login").value;
+        let senha = document.getElementById("senha").value;
 
 
     body = {
@@ -35,7 +38,9 @@ function cadastraCliente() {
         "bairro": bairro,
         "cidade": cidade,
         "uf": uf,
-        "cep": cep
+        "cep": cep,
+        "login":login,
+        "senha": senha
     }
 
     fazPost(url, body)
